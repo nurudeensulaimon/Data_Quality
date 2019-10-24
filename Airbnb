@@ -209,3 +209,16 @@ X_tsne = TSNE(n_iter=251,learning_rate=100).fit_transform(df_all)
 scatter(X_tsne[:, 0], X_tsne[:, 1], c=y,cmap=plt.cm.spectral,alpha=.4,
         edgecolor='k')
 plt.show()
+
+
+sns.lineplot(x="date", y="sales",legend = 'full' , data=train_df[:28])
+sns.boxplot(x="weekday", y="sales", data=train_df)
+
+
+train_df = train_df.set_index('date')
+train_df['sales'] = train_df['sales'].astype(float)
+
+train_df.head()
+
+from statsmodels.tsa.seasonal import seasonal_decompose
+result = seasonal_decompose(train_df['sales'], model='additive', freq=365)
